@@ -5,8 +5,6 @@ import { useProducts } from "./hooks/use-products";
 
 //nextpage = limit * page_number.
 
-console.log(`${APP_CONST.API_URL()}${ENDPOINTS.GET_PRODUCTS(10, 0)}`);
-
 function App() {
   // const [products, setProducts] = useState();
   const [limit, setLimit] = useState(10);
