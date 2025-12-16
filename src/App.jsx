@@ -12,25 +12,24 @@ function App() {
   const [limit, setLimit] = useState(10);
   const [pageNo, setPageNo] = useState(0);
 
-  const { products, total, isPending, error } = useProducts(
-    limit,
-    limit * pageNo
-  );
+  const { data, isPending, error } = useProducts(limit, limit * pageNo);
 
-  if (isPending) return <div>Loaidng...</div>;
+  if (isPending) return <div>Loading...</div>;
+
   if (error)
     return (
       <div>
         Error: <pre>{JSON.stringify(error)}</pre>
       </div>
     );
-  if (!products) return <div>No products found</div>;
+
+  if (!data?.products) return <div>No products found</div>;
 
   return (
     <>
       <div>
         <ol>
-          {products?.map((product) => (
+          {data?.products?.map((product) => (
             <li value={product.id} key={product.id}>
               {product.title}
             </li>
@@ -38,8 +37,10 @@ function App() {
         </ol>
         <div>
           Showing {limit * pageNo + 1} -{" "}
-          {limit + limit * pageNo > total ? total : limit + limit * pageNo} of{" "}
-          {total}
+          {limit + limit * pageNo > data.total
+            ? data.total
+            : limit + limit * pageNo}{" "}
+          of {data.total}
         </div>
         <div>
           <button
@@ -50,7 +51,7 @@ function App() {
           </button>
           <button
             onClick={() => setPageNo((prev) => prev + 1)}
-            disabled={limit + limit * pageNo > total || isPending}
+            disabled={limit + limit * pageNo > data.total || isPending}
           >
             Next
           </button>
