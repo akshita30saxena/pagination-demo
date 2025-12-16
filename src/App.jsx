@@ -59,9 +59,30 @@ function App() {
           {isPending && <div>loading..</div>}
         </div>
         <div>
-          <button onClick={() => setLimit(10)}>10</button>
-          <button onClick={() => setLimit(25)}>25</button>
-          <button onClick={() => setLimit(50)}>50</button>
+          <button
+            onClick={() => {
+              setLimit(10);
+              setPageNo(0);
+            }}
+          >
+            10
+          </button>
+          <button
+            onClick={() => {
+              setLimit(25);
+              setPageNo(0);
+            }}
+          >
+            25
+          </button>
+          <button
+            onClick={() => {
+              setLimit(50);
+              setPageNo(0);
+            }}
+          >
+            50
+          </button>
         </div>
       </div>
     </>
